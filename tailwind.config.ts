@@ -16,7 +16,11 @@ export default {
       whiteBasic: " #F5F3FE",
       whiteTextDarkMode: "#F1F1F1",
       secondaryDark: "#131313",
-    },},
+    },
+    gridTemplateColumns: {
+      charactersCards: "repeat(auto-fit, minmax(250px, 1fr))",
+    },
+  },
   },
   plugins: [],
 } satisfies Config;

@@ -1,3 +1,42 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+body {
+    @apply bg-primaryDark
+}
+
+::-webkit-scrollbar {
+    display: none;
+  }
+  
+
+a  {
+    @apply text-primary
+}
+p  {
+    @apply text-primary
+}
+h1  {
+    @apply text-primary
+}
+h2  {
+    @apply text-primary
+}
+h3  {
+    @apply text-primary
+}
+h4  {
+    @apply text-primary
+}
+h5  {
+    @apply text-primary
+}
+
+h6  {
+    @apply text-primary
+}
+span  {
+    @apply text-primary
+}
