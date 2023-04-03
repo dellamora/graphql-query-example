@@ -1,6 +1,5 @@
 
 
-To write a GraphQL query, you need to specify the data you want to retrieve and the structure in which you want it to be returned. This is done using a query language that is similar to JSON.
 
 ## step by step 
 
@@ -30,7 +29,7 @@ VS Marketplace Link: https://marketplace.visualstudio.com/items?itemName=apollog
 
 #react #typescript #graphql #apollographql
 
-Today,  we will explore the basics of GraphQL and learn how to structure queries and retrieve data from a GraphQL API. While no prior experience with GraphQL is required, having some familiarity with [React](https://react.dev/), [TypeScript](https://www.typescriptlang.org/) and [Tailwind CSS](https://tailwindcss.com/) will be helpful in understanding the concepts we'll cover. Whether you're a seasoned developer or a newbie like me, this guide will provide a comprehensive introduction to help you get started with writing GraphQL queries using ApolloClient
+Today,  we will explore the basics of GraphQL and learn how to structure queries and retrieve data from a GraphQL API. While no prior experience with GraphQL is required, having some familiarity with [React](https://react.dev/) and [TypeScript](https://www.typescriptlang.org/)  will be helpful in understanding the concepts we'll cover. Whether you're a seasoned developer or a newbie like me, this guide will provide a comprehensive introduction to help you get started with writing GraphQL queries using ApolloClient
 
  I'll be sharing my tips and tricks along the way, and I hope that this article will be a valuable resource for anyone looking to learn about GraphQL.
 
@@ -44,7 +43,9 @@ The great thing about GraphQL is that it allows for faster and more scalable web
 
 Basically, a GraphQL query allows clients to retrieve only the data they need, and nothing more from a GraphQL API.
 
-You write queries using the GraphQL query language, which is kind of like a simple way of asking for what you want. You can specify which fields you want to retrieve, and any filters or sorting you need to use. Then, the GraphQL server uses that query to grab the data you requested and sends it back to you in a nice, tidy JSON format.
+   To write a GraphQL query, you need to specify the data you want to retrieve and the structure in which you want it to be returned. This is done using a query language that is similar to JSON, where you can specify which fields you want to retrieve, and any filters or sorting you need to use. Then, the GraphQL server uses that query to grab the data you requested and sends it back to you in a nice, tidy JSON format.
+
+
 
 In this article we will utilize [the Rick and Morty API GraphQL playground](https://rickandmortyapi.com/graphql). There, you can experiment with writing your own queries and seeing the data that comes back. It's a great way to get a feel for how GraphQL works, and to see the benefits of being able to request exactly the data you need. So go ahead and give it a try – you might just have some fun while you're at it.
 
@@ -106,53 +107,117 @@ One of the main benefits of using ApolloClient is that it abstracts away a lot o
 3. With the basic tools installed, organize the project architecture by following the steps below:
    1. Create a folder named `Apollo` inside the `src` folder of your project.
    2. Create a file named `index.tsx` inside the `Apollo` folder
-   3. Create a second folder named `codegen` inside the `Apollo` folder. - We will see more about codegen later!
+   3. Create a second folder named `codegen` inside the `Apollo` folder. - We will see more about [codegen](https://the-guild.dev/graphql/codegen/docs/config-reference/codegen-config) later!
    
-The project architecture should look similar to this:
+    The project architecture should look similar to this:
 
-````
-src 
-  apollo
-    >codegen
-    index.tsx
-    ...
-````
+    ````
+    src 
+      apollo
+        >codegen
+        index.tsx
+        ...
+    ````
 4. With the environment configured, it's finally time for some fun: Let's initialize our [ApolloClient](https://www.apollographql.com/docs/react/get-started) inside the `index.tsx` file:
-````TypeScript
-import { ApolloClient, InMemoryCache } from "@apollo/client";
+    1. To start, lets import only the symbols we need from `@apollo/client`
 
-export const apolloClient = new ApolloClient({
-  uri: "https://rickandmortyapi.com/graphql",
-  cache: new InMemoryCache();
-````
+        ````TypeScript
+        import { ApolloClient, InMemoryCache } from "@apollo/client";
+        ````
+    2. After that, we'll start our ApolloClient by configuring the uri and cache objects, passing only the data we'll be using. In this case, we'll use The Rick and Morty API, and for now, to not worry about the cache, we'll use InMemoryCache.
+
+        ````TypeScript
+        export const apolloClient = new ApolloClient({
+          uri: "https://rickandmortyapi.com/graphql",
+          cache: new InMemoryCache();
+        ````
+     - `uri` indicates the `URL` of our GraphQL server. 
+     - `cache` is an instance of `InMemoryCache`, which stores query results retrieved by ApolloClient.
+
+  5. To be able to use Apollo in our React application, we need to wrap it in the ApolloClient as shown in the example below from the `_app.tsx` file:
+   
+      ````TypeScript
+      import { type AppType } from "next/dist/shared/lib/utils";
+      import "@/styles/globals.css";
+      import { ApolloProvider } from "@apollo/client";
+      import { apolloClient } from "@/apollo";
+      import Head from "next/head";
+
+      const MyApp: AppType = ({ Component, pageProps }) => {
+        return (
+          <ApolloProvider client={apolloClient}>
+            <Head>
+              <title>GraphQL and Morty</title>
+            </Head>
+            <Component {...pageProps} />;
+          </ApolloProvider>
+        );
+      };
+
+      export default MyApp;
+        ````
+5. Let's write our query 
+  -  Note that if you're using the [Visual Studio Code](https://code.visualstudio.com/), I recommend downloading the [Apollo GraphQL](https://marketplace.visualstudio.com/items?itemName=apollographql.vscode-apollo) extension to make your query more readable.
+  
+      1. To query data from the Rick and Morty API, we can use the useQuery React Hook from Apollo Client. This function takes a GraphQL query defined using the gql tagged template literal as its argument.
+         1. after we import the useQuery hook we will pass write or query like the example below
+
+      ````TypeScript
+        const result = useQuery(
+          gql`
+            query Characters {
+              characters {
+                info {
+                  count
+                  next
+                }
+                results {
+                  created
+                  gender
+                  id
+                  image
+                  name
+                  species
+                  status
+                  type
+                }
+              }
+            }
+          `
+        );
+      ````
 
 
-   2. app.tsx
- ````TypeScript
-import { type AppType } from "next/dist/shared/lib/utils";
-import "n/styles/globals.css";
-import { ApolloProvider } from "@apollo/client";
-import { apolloClient } from "n/apollo";
-import Head from "next/head";
+6. After that, we'll use the [GraphQL Code Generator](https://the-guild.dev/graphql/codegen/docs/config-reference/codegen-config) to generate the API typings for us.
 
-const MyApp: AppType = ({ Component, pageProps }) => {
-  return (
-    <ApolloProvider client={apolloClient}>
-      <Head>
-        <title>GraphQL and Morty</title>
-      </Head>
-      <Component {...pageProps} />;
-    </ApolloProvider>
-  );
-};
+   -  GraphQL Code Generator is a powerful tool that automates the process of generating type-safe code from your GraphQL schema. With just a few lines of configuration, you can generate code for your client-side application in a variety of languages, including TypeScript, JavaScript, Java, and more.
 
-export default MyApp;
-   ````
-5. Let's write the API query as it is in the playground example
-   1. If you're using the [Visual Studio Code](https://code.visualstudio.com/), I recommend downloading the [Apollo GraphQL](https://marketplace.visualstudio.com/items?itemName=apollographql.vscode-apollo) extension to make your query more readable.
-6. After that, we'll use codegen to generate the API typings for us.
-7. Now, let's configure the cache to enable pagination in the index.
-8. Finally, you can style and use any tools you want to develop your application, and I recommend using Framer Motion for animations like the nav toggle and Intersection Observer to create the infinite scroll effect. Feel free to use your creativy and have fun!
+    To get started with GraphQL Code Generator, follow these simple steps:
+
+      1. Install the required packages by running the command:
+          ````sql
+          yarn add -D @graphql-codegen/cli @graphql-codegen/typescript @graphql-codegen/typescript-resolvers
+          ````
+         This will install the necessary dependencies for generating TypeScript code from your GraphQL schema.
+
+      2. Initialize the configuration by running the command:
+          ````csharp
+          Yarn graphql-codegen init
+          ````
+          This will create a configuration file for you to customize and set up according to your needs. You can find detailed documentation on the configuration options in the GraphQL Code Generator website.
+      4. run `yarn graphql-code-generator init`
+      5. Generate the code by running the command:  
+          ````csharp
+          yarn codegen
+          ````   
+          This will generate type-safe code for your client-side application based on the schema defined in your GraphQL API.
+   1. Add the typings to your code: 
+      ````TypeScript
+      const result = useQuery<{ characters: Characters }>(gql` ...`);
+      ````
+    With these simple steps, you can automate the process of generating type-safe code from your GraphQL schema and enjoy the benefits of increased productivity and reduced potential for errors in your client-side application.
+
+7. Finally, you can configure the cache to enable pagination, style and use any tools you want to develop your application, and I recommend using Framer Motion for animations like the nav toggle and Intersection Observer to create the infinite scroll effect. Feel free to get inspired by my project, use your creativy and have fun!
 
 
 
