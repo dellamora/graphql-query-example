@@ -29,13 +29,6 @@ const Nav: React.FC = (): JSX.Element => {
       </motion.div>
       {isOpen && (
         <div className="absolute  left-0 right-0 top-16 z-50 flex h-screen w-screen flex-col items-center gap-6 overflow-y-scroll bg-primaryDark py-5 text-2xl font-semibold lg:hidden">
-          <Link
-            onClick={() => setIsOpen(current => !current)}
-            href="/about"
-            className="mr-4 hover:underline md:mr-6"
-          >
-            About the Project
-          </Link>
           <a
             onClick={() => setIsOpen(current => !current)}
             target="_blank"
@@ -66,13 +59,6 @@ const Nav: React.FC = (): JSX.Element => {
         </div>
       )}
       <div className="hidden justify-between gap-4 text-lg font-semibold lg:flex ">
-        <Link
-          onClick={() => setIsOpen(current => !current)}
-          href="/about"
-          className="mr-4 hover:underline md:mr-6"
-        >
-          About the Project
-        </Link>
         <a
           target="_blank"
           href="https://www.dellamora.dev/"
