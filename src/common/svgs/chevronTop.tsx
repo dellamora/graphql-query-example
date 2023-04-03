@@ -1,4 +1,4 @@
-import { type Icon } from "n/domain/components";
+import { type Icon } from "@/domain/components";
 
 const ChevronTop: Icon = ({ className }) => {
   return (

@@ -1,5 +1,5 @@
 import { type AppType } from "next/dist/shared/lib/utils";
-import "n/styles/globals.css";
+import "@/styles/globals.css";
 import { ApolloProvider } from "@apollo/client";
 import { apolloClient } from "@/apollo";
 import Nav from "@/common/components/nav";
