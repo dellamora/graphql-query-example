@@ -320,5 +320,8 @@ The `merge` property is responsible for merging the data received from the API w
 
 It's worth noting that the satisfies Characters is a type check that ensures the function's return value conforms to the Characters type.
 
- Finally, you can style and use any tools you want to develop your application!
- Feel free to get inspired by [my project](https://github.com/dellamora/my-first-GraphQL-query), use your creativy and have fun!
+### **Finally, you can style, use any tools you want and try out new utilies!**
+
+Note that, like every basic guide, there is much more to explore! Now that we know the basics, we can delve deeper and explore other amazing features of GraphQL, such as mutations, subscribers, and even create our own GraphQL server!
+
+Who knows, maybe this will be the topic of our next article, huh? So, stay tuned and keep following our content to learn more about this fascinating technology! See you next time!
