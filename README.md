@@ -26,7 +26,7 @@ The following technologies were used to create this project:
 
 ## Using GraphQL and Apollo
 
-You can read more about this top [here.](https://github.com/dellamora/my-first-GraphQL-query/blob/main/src/blogPost.md)
+You can read more about this topic [here.](https://github.com/dellamora/my-first-GraphQL-query/blob/main/src/blogPost.md)
 
 ## Conclusion
 
