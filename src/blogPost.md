@@ -278,7 +278,7 @@ To implment the infinite scroll effect, was used the [Intersection Observer (IO)
   }, [inView, fetchNextPage]);
 ```
 
- If you're interested in learning more details, you can check out the full code in the [repository](https://github.com/dellamora/my-first-GraphQL-query).
+ If you're interested in learning more details, you can check out the full code in the [repository](https://github.com/dellamora/GraphQL-query-example).
 
 After that, when the user scrolls down to the end of the character list, a new query is executed to fetch the next page of results. The page number is determined by the `next` property in the `info` object returned by the previous query. If `next` is `null`, it means there are no more pages to `fetch`.
 
