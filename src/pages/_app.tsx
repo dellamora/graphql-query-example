@@ -1,8 +1,8 @@
 import { type AppType } from "next/dist/shared/lib/utils";
 import "n/styles/globals.css";
 import { ApolloProvider } from "@apollo/client";
-import { apolloClient } from "n/apollo";
-import Nav from "n/common/components/nav";
+import { apolloClient } from "@/apollo";
+import Nav from "@/common/components/nav";
 import Head from "next/head";
 
 const MyApp: AppType = ({ Component, pageProps }) => {

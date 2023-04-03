@@ -1,10 +1,10 @@
 import { gql, useQuery } from "@apollo/client";
-import { type Characters } from "n/apollo/codegen/graphql";
+import { type Characters } from "@/apollo/codegen/graphql";
 import { type NextPage } from "next";
 import { useCallback, useEffect, useState } from "react";
 import { useInView } from "react-intersection-observer";
 import Image from "next/image";
-import ChevronTop from "n/common/svgs/chevronTop";
+import ChevronTop from "@/common/svgs/chevronTop";
 import { useScroll } from "framer-motion";
 
 const Home: NextPage = () => {
